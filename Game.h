@@ -2,7 +2,7 @@
 #ifndef Game_h
 #define Game_h
 
-class Player;
+class Player;    //forward declaration
 
 class Game
 {

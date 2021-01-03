@@ -5,7 +5,7 @@
 #ifndef Board_h
 #define Board_h
 
-class Ship;
+class Ship;  //forward declaration
 
 class Board
 {
@@ -13,7 +13,8 @@ public:
 	Board() {}
 	~Board() {}
 	void drawField();
-	void addShip(int x, int y, int length, char dir);
+	bool addShip(int x, int y, int length, char dir);
+	void clearField();
 	std::string attack(int x, int y);
 private:
 	const int boardSize = 10;

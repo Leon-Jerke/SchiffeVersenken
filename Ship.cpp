@@ -1,6 +1,6 @@
 #include "Ship.h"
 
-Ship::Ship()
+Ship::Ship(int x, int y, int length, char dir)
 {
 	sunken = false;
 }

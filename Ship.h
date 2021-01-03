@@ -5,7 +5,7 @@
 class Ship
 {
 public:
-	Ship() {}
+	Ship(int x, int y, int length, char dir) {}
 	~Ship() {}
 	bool shipStatus();
 
