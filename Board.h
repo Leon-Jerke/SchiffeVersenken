@@ -1,25 +1,36 @@
 #pragma once
-#include <string>
-#include <vector>
-
 #ifndef Board_h
 #define Board_h
+#include <string>
+#include <vector>
+#include <array>
+#include <iostream>
+#include "Structs.h"
 
 class Ship;  //forward declaration
 
 class Board
 {
 public:
-	Board() {}
+	Board();
 	~Board() {}
 	void drawField();
-	bool addShip(int x, int y, int length, char dir);
+	bool checkShipPosition(std::shared_ptr<struct_Point> Point, int length, bool dir);
 	void clearField();
+	int charToInt(char& input);
+	bool setHorizontalVertical();
+	void setShips();
+	void setBattleships();
+	void setCruisers();
+	void setDestroyers();
+	void setUBoats();
+	void updateField();
 	std::string attack(int x, int y);
+
 private:
-	const int boardSize = 10;
-	char** field;
-	std::vector<Ship&> shipList;
+	static const int boardSize = 10;
+	std::array<std::array<char, boardSize>, boardSize> field;
+	std::vector<std::shared_ptr<Ship>> shipList;
 };
 
 #endif
