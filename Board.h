@@ -20,10 +20,6 @@ public:
 	int charToInt(char& input);
 	bool setHorizontalVertical();
 	void setShips();
-	void setBattleships();
-	void setCruisers();
-	void setDestroyers();
-	void setUBoats();
 	void updateField();
 	std::string attack(int x, int y);
 

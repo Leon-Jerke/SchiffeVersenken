@@ -1,8 +1,14 @@
-//#include "Player.h"
-//#include "Board.h"
-//
-//Player::Player()
-//{
-//	playerBoard = new Board();  //Jeder spieler soll ein playerBoard und ein hitBoard besitzen
-//	hitBoard = new Board();
-//}
+#include "Player.h"
+#include "Board.h"
+
+Player::Player()
+{
+	auto playerBoard = std::make_shared<Board>();
+	auto hitBoard = std::make_shared<Board>();
+
+}
+
+void Player::fire(int x, int y)
+{
+	
+}
