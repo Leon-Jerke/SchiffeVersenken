@@ -1,14 +1,13 @@
 #include "Player.h"
 #include "Board.h"
 
-Player::Player()
+void Player::init()
 {
-	auto playerBoard = std::make_shared<Board>();
-	auto hitBoard = std::make_shared<Board>();
-
+	playerBoard.drawField();
+	playerBoard.setShips();
 }
 
-void Player::fire(int x, int y)
+void Player::fire(Player& enemy, std::shared_ptr<struct_Point> point)
 {
 	
 }

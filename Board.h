@@ -17,11 +17,11 @@ public:
 	void drawField();
 	bool checkShipPosition(std::shared_ptr<struct_Point> Point, int length, bool dir);
 	void clearField();
-	int charToInt(char& input);
+	//int charToInt(char& input);
 	bool setHorizontalVertical();
 	void setShips();
 	void updateField();
-	std::string attack(int x, int y);
+	std::string attack(std::shared_ptr<struct_Point> point);
 
 private:
 	static const int boardSize = 10;

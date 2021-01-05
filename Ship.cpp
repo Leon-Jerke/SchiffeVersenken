@@ -7,9 +7,19 @@ Ship::Ship(std::shared_ptr<struct_Point> Point, int length, bool dir)
 	UpperLeftCoordinates = Point;
 	this->length = length;
 	vertical = dir;
+	health = length;
 }
 
-bool Ship::shipStatus()
+bool Ship::shipHit()
 {
-	return sunken;
+	health--;
+	if (health > 0)
+	{
+		return sunken;
+	}
+	else
+	{
+		sunken = true;
+		return sunken;
+	}
 }

@@ -85,52 +85,52 @@ bool Board::checkShipPosition(std::shared_ptr<struct_Point> Point, int length, b
 	return true;
 }
 
-int Board::charToInt(char& input) {
-	switch (input) {
-	case 'a':
-	case 'A':
-	case '0':
-		return 0;
-	case 'b':
-	case 'B':
-	case '1':
-		return 1;
-	case 'c':
-	case 'C':
-	case '2':
-		return 2;
-	case 'd':
-	case 'D':
-	case '3':
-		return 3;
-	case 'e':
-	case 'E':
-	case '4':
-		return 4;
-	case 'f':
-	case 'F':
-	case '5':
-		return 5;
-	case 'g':
-	case 'G':
-	case '6':
-		return 6;
-	case 'h':
-	case 'H':
-	case '7':
-		return 7;
-	case 'i':
-	case 'I':
-	case '8':
-		return 8;
-	case 'j':
-	case 'J':
-	case '9':
-		return 9;
-	default:
-		return 0;
-	}
-}
+//int Board::charToInt(char& input) {
+//	switch (input) {
+//	case 'a':
+//	case 'A':
+//	case '0':
+//		return 0;
+//	case 'b':
+//	case 'B':
+//	case '1':
+//		return 1;
+//	case 'c':
+//	case 'C':
+//	case '2':
+//		return 2;
+//	case 'd':
+//	case 'D':
+//	case '3':
+//		return 3;
+//	case 'e':
+//	case 'E':
+//	case '4':
+//		return 4;
+//	case 'f':
+//	case 'F':
+//	case '5':
+//		return 5;
+//	case 'g':
+//	case 'G':
+//	case '6':
+//		return 6;
+//	case 'h':
+//	case 'H':
+//	case '7':
+//		return 7;
+//	case 'i':
+//	case 'I':
+//	case '8':
+//		return 8;
+//	case 'j':
+//	case 'J':
+//	case '9':
+//		return 9;
+//	default:
+//		return 0;
+//	}
+//}
 
 bool Board::setHorizontalVertical() {
 	char input;
@@ -148,7 +148,7 @@ bool Board::setHorizontalVertical() {
 }
 
 void Board::setShips() {
-	char input;
+	std::string input;
 	int tmpX;
 	int tmpY;
 	bool tmpDirection;
@@ -171,14 +171,15 @@ void Board::setShips() {
 		std::cout << "Um Schiff " << i << " der Größe " << tmpSize << " zu setzen, muessen Sie festlegen ob dieser Horizontal oder Vertikal gesetzt werden soll." << std::endl;
 		tmpDirection = setHorizontalVertical();
 		std::cout << "Nun benötige ich " << (tmpDirection ? " die oberste " : " die linkeste ") << "Koordinate des Schiffes" << std::endl;
-		std::cout << "Bitte beachten Sie die jeweilige Größe des Schiffes von 4 Feldern" << std::endl;
-		std::cout << "X: ";
+		std::cout << "Bitte beachten Sie die jeweilige Größe des Schiffes von" << tmpSize << "Feldern" << std::endl;
+		std::cout << "Koordinaten: ";
 		std::cin >> input;
-		tmpX = charToInt(input);
-		std::cout << std::endl << "Y: ";
-		std::cin >> input;
-		tmpY = input - '0';
-		auto point = std::make_shared<struct_Point>(tmpX, tmpY);
+		//std::cin >> input;
+		//tmpX = charToInt(input);
+		//std::cout << std::endl << "Y: ";
+		//std::cin >> input;
+		//tmpY = input - '0';
+		auto point = std::make_shared<struct_Point>(input);
 		if (checkShipPosition(point, tmpSize, tmpDirection)) {
 			auto newShip = std::make_shared<Ship>(Ship(point, tmpSize, tmpDirection));
 			shipList.push_back(newShip);
@@ -207,7 +208,16 @@ void Board::updateField() {
 	drawField();
 }
 
-std::string Board::attack(int x, int y)
+std::string Board::attack(std::shared_ptr<struct_Point> point)
 {
-	return "hit";
+	char target = field[point->x][point->y];
+	if (target == 'S')
+	{
+
+		return "hit";
+	}
+	else
+	{
+		return "Missed!";
+	}
 }

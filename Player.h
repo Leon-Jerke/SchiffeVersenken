@@ -2,18 +2,22 @@
 #ifndef Player_h
 #define Player_h
 #include <memory>
+#include <string>
+#include "Structs.h"
 
 class Board;
 
 class Player
 {
 public:
-	Player();
+	Player(Board& b1, Board& b2) : playerBoard(b1), hitBoard(b2) {}
 	~Player() {}
-	void fire(int x, int y);
+	void init();
+	void fire(Player& enemy, std::shared_ptr<struct_Point> point);
 private:
-	std::shared_ptr<Board> playerBoard;
-	std::shared_ptr<Board> hitBoard;
+	std::string playerId;
+	Board& playerBoard;
+	Board& hitBoard;
 };
 
 #endif
