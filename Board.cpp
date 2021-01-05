@@ -208,16 +208,66 @@ void Board::updateField() {
 	drawField();
 }
 
-std::string Board::attack(std::shared_ptr<struct_Point> point)
+char Board::getPos(std::shared_ptr<struct_Point> point)
+{
+	return field[point->x][point->y];
+}
+
+void Board::setPos(std::shared_ptr<struct_Point> point, char& c)
+{
+	field[point->x][point->y] = c;
+}
+
+bool Board::attack(std::shared_ptr<struct_Point> point)
 {
 	char target = field[point->x][point->y];
 	if (target == 'S')
 	{
-
-		return "hit";
+		std::cout << "Getroffen!" << std::endl;
+		for (std::shared_ptr<Ship> tmp : shipList) {
+			if (tmp->vertical) {
+				for (int i = 0; i < tmp->length; ++i) {
+					if (tmp->UpperLeftCoordinates->x == point->x && tmp->UpperLeftCoordinates->y + i == point->y)
+					{
+						bool status = tmp->shipHit();
+						if (status)
+						{
+							std::cout << "Schiff versenkt!" << std::endl;
+						}
+					}
+				}
+			}
+			else {
+				for (int i = 0; i < tmp->length; ++i) {
+					if (tmp->UpperLeftCoordinates->x + i== point->x && tmp->UpperLeftCoordinates->y == point->y)
+					{
+						bool status = tmp->shipHit();
+						if (status)
+						{
+							std::cout << "Schiff versenkt!" << std::endl;
+						}
+					}
+				}
+			}
+		}
+		return true;
 	}
 	else
 	{
-		return "Missed!";
+		std::cout << "Nicht Getroffen!" << std::endl;
+		return false;
 	}
+}
+
+bool Board::fleetStatus()
+{
+	bool won = true;
+	for (std::shared_ptr<Ship> tmp : shipList)
+	{
+		if (!tmp->sunken)
+		{
+			won = false;
+		}
+	}
+	return won;
 }

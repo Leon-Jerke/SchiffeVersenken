@@ -13,9 +13,9 @@ public:
 	std::shared_ptr<struct_Point> UpperLeftCoordinates;
 	int length;
 	bool vertical;
+	bool sunken;
 private:
 	int health;
-	bool sunken;
 };
 
 #endif

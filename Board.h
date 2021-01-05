@@ -21,7 +21,10 @@ public:
 	bool setHorizontalVertical();
 	void setShips();
 	void updateField();
-	std::string attack(std::shared_ptr<struct_Point> point);
+	char getPos(std::shared_ptr<struct_Point> point);
+	void setPos(std::shared_ptr<struct_Point> point, char& c);
+	bool attack(std::shared_ptr<struct_Point> point);
+	bool fleetStatus();
 
 private:
 	static const int boardSize = 10;

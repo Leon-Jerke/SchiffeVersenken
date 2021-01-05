@@ -14,8 +14,11 @@ public:
 	~Player() {}
 	void init();
 	void fire(Player& enemy, std::shared_ptr<struct_Point> point);
-private:
+	bool checkTarget(std::shared_ptr<struct_Point> point);
+	void showBoard();
+	bool gameStatus();
 	std::string playerId;
+private:
 	Board& playerBoard;
 	Board& hitBoard;
 };
