@@ -80,7 +80,7 @@ bool Board::checkShipPosition(std::shared_ptr<struct_Point> Point, int length, b
 					return false;
 				}
 			}
-			if (Point->x < 0) {
+			if (Point->x > 0) {
 				if (field[Point->x - 1][Point->y + i] == 'S') { //left field
 					std::cout << "Das Schiff kollidiert mit einem Anderen, bitte setzen Sie es erneut." << std::endl;
 					return false;
@@ -109,7 +109,7 @@ bool Board::checkShipPosition(std::shared_ptr<struct_Point> Point, int length, b
 				}
 			}
 			
-			if (Point->x + i> 0) {
+			if (Point->x + i > 0) {
 				if (field[Point->x + i - 1][Point->y] == 'S') { // left field
 					std::cout << "Das Schiff kollidiert mit einem Anderen, bitte setzen Sie es erneut." << std::endl;
 					return false;
