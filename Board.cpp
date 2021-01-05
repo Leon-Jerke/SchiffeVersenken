@@ -55,12 +55,35 @@ bool Board::checkShipPosition(std::shared_ptr<struct_Point> Point, int length, b
 			std::cout << "Das Schiff kann hier nicht platziert werden, bitte beachten Sie die Gr��e des Schiffes: " << length << std::endl;
 			return false;
 		}
-		for (int i = 0; i < length; ++i) {
+		for (int i = 0; i < length; ++i) { //this field
 			if (field[Point->x][Point->y + i] == 'S') {
 				std::cout << "Das Schiff kollidiert mit einem Anderen, bitte setzen Sie es erneut." << std::endl;
 				return false;
 			}
+			if (Point->y + i + 1 <= boardSize) {
+				if (field[Point->x][Point->y + i + 1] == 'S') { //lower field
+					std::cout << "Das Schiff kollidiert mit einem Anderen, bitte setzen Sie es erneut." << std::endl;
+					return false;
+				}
+			}
+			
+			if (field[Point->x][Point->y + i - 1] == 'S') { //upper field
+				std::cout << "Das Schiff kollidiert mit einem Anderen, bitte setzen Sie es erneut." << std::endl;
+				return false;
+			}
+			if (Point->x + 1 <= boardSize) {
+				if (field[Point->x + 1][Point->y + i] == 'S') { //right field
+					std::cout << "Das Schiff kollidiert mit einem Anderen, bitte setzen Sie es erneut." << std::endl;
+					return false;
+				}
+			}
+	
+			if (field[Point->x - 1][Point->y + i] == 'S') { //left field
+				std::cout << "Das Schiff kollidiert mit einem Anderen, bitte setzen Sie es erneut." << std::endl;
+				return false;
+			}
 		}
+
 	}
 	else
 	{
@@ -70,7 +93,29 @@ bool Board::checkShipPosition(std::shared_ptr<struct_Point> Point, int length, b
 			return false;
 		}
 		for (int i = 0; i < length; ++i) {
-			if (field[Point->x + i][Point->y] == 'S') {
+			if (field[Point->x + i][Point->y] == 'S') { //this field
+				std::cout << "Das Schiff kollidiert mit einem Anderen, bitte setzen Sie es erneut." << std::endl;
+				return false;
+			}
+			if (Point->x + 1 <= boardSize) {
+				if (field[Point->x + i + 1][Point->y] == 'S') { // right field
+					std::cout << "Das Schiff kollidiert mit einem Anderen, bitte setzen Sie es erneut." << std::endl;
+					return false;
+				}
+			}
+			
+			if (field[Point->x + i - 1][Point->y] == 'S') { // left field
+				std::cout << "Das Schiff kollidiert mit einem Anderen, bitte setzen Sie es erneut." << std::endl;
+				return false;
+			}
+			if (Point->y + i + 1 <= boardSize) {
+				if (field[Point->x + i][Point->y + 1] == 'S') { //lower field
+					std::cout << "Das Schiff kollidiert mit einem Anderen, bitte setzen Sie es erneut." << std::endl;
+					return false;
+				}
+			}
+			
+			if (field[Point->x + i][Point->y - 1] == 'S') { //upper field
 				std::cout << "Das Schiff kollidiert mit einem Anderen, bitte setzen Sie es erneut." << std::endl;
 				return false;
 			}
