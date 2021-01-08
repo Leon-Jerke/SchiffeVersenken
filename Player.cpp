@@ -3,21 +3,27 @@
 
 void Player::init()
 {
-	std::cout << "Gib deinen Namen ein: ";
-	std::cin >> playerId;
-	playerBoard.drawField();
-	std::cout << "Falls alle Shiffe Random gesetzt werden sollen, geben Sie bitte R ein, falls nicht drücken Sie Enter";
-	char input;
-	std::cin >> input;
-	switch (input) {
-	case 'r':
-	case 'R':
+	if (computer)
+	{
+		playerId = "Computer";
 		playerBoard.setShipsRandom();
-		break;
-	default: playerBoard.setShips();
 	}
-
-	
+	else
+	{
+		std::cout << "Gib deinen Namen ein: ";
+		std::cin >> playerId;
+		playerBoard.drawField();
+		std::cout << "Falls alle Shiffe Random gesetzt werden sollen, geben Sie bitte R ein, falls nicht druecken Sie Enter: ";
+		char input;
+		std::cin >> input;
+		switch (input) {
+		case 'r':
+		case 'R':
+			playerBoard.setShipsRandom();
+			break;
+		default: playerBoard.setShips();
+		}
+	}
 }
 
 void Player::fire(Player& enemy, std::shared_ptr<struct_Point> point)
@@ -57,4 +63,24 @@ void Player::showBoard()
 bool Player::gameStatus()
 {
 	return playerBoard.fleetStatus();
+}
+
+void Player::setPlayerId(std::string& id)
+{
+	playerId = id;
+}
+
+std::string Player::getPlayerId()
+{
+	return playerId;
+}
+
+void Player::setComputer(bool b)
+{
+	computer = b;
+}
+
+bool Player::getComputer()
+{
+	return computer;
 }

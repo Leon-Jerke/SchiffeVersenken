@@ -17,7 +17,7 @@ typedef struct struct_Points {
         }
     }
     ~struct_Points() {
-        std::cout << "A Point was deleted at" << x << y << std::endl;
+        //std::cout << "A Point was deleted at" << x << y << std::endl;
     }
 }struct_Point;
 #endif

@@ -74,7 +74,6 @@ bool Board::checkShipPosition(std::shared_ptr<struct_Point> Point, int length, b
 					return false;
 				}
 			}
-			
 			if (Point->x < boardSize - 1) {
 				if (field[Point->x + 1][Point->y + i] == 'S') { //right field
 				
@@ -87,13 +86,10 @@ bool Board::checkShipPosition(std::shared_ptr<struct_Point> Point, int length, b
 					return false;
 				}
 			}
-			
 		}
-
 	}
 	else
 	{
-
 		if (Point->x + length > boardSize) {
 			std::cout << "Das Schiff kann hier nicht platziert werden, bitte beachten Sie die Groesse des Schiffes: " << length << std::endl;
 
@@ -110,28 +106,24 @@ bool Board::checkShipPosition(std::shared_ptr<struct_Point> Point, int length, b
 					return false;
 				}
 			}
-			
 			if (Point->x + i > 0) {
 				if (field[Point->x + i - 1][Point->y] == 'S') { // left field
 
 					return false;
 				}
 			}
-			
 			if (Point->y < boardSize - 1) {
 				if (field[Point->x + i][Point->y + 1] == 'S') { //lower field
 					
 					return false;
 				}
 			}
-
 			if (Point->y > 0) {
 				if (field[Point->x + i][Point->y - 1] == 'S') { //upper field
 	
 					return false;
 				}
 			}
-			
 		}
 	}
 	// else
