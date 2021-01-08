@@ -2,6 +2,7 @@
 #include "Ship.h"
 #include <iostream>
 #include <memory>
+#include <random>
 
 
 
@@ -52,37 +53,37 @@ bool Board::checkShipPosition(std::shared_ptr<struct_Point> Point, int length, b
 	if (dir) //vertical
 	{
 		if (Point->y + length > boardSize) {
+
 			std::cout << "Das Schiff kann hier nicht platziert werden, bitte beachten Sie die Groesse des Schiffes: " << length << std::endl;
 			return false;
 		}
 		for (int i = 0; i < length; ++i) { //this field
 			if (field[Point->x][Point->y + i] == 'S') {
-				std::cout << "Das Schiff kollidiert mit einem Anderen, bitte setzen Sie es erneut." << std::endl;
+
 				return false;
 			}
 			if (Point->y + i < boardSize - 1) {
 				if (field[Point->x][Point->y + i + 1] == 'S') { //lower field
-					std::cout << "Das Schiff kollidiert mit einem Anderen, bitte setzen Sie es erneut." << std::endl;
+
 					return false;
 				}
 			}
 			if (Point->y + i > 0) {
 				if (field[Point->x][Point->y + i - 1] == 'S') { //upper field
-					std::cout << "Das Schiff kollidiert mit einem Anderen, bitte setzen Sie es erneut." << std::endl;
+
 					return false;
 				}
 			}
 			
 			if (Point->x < boardSize - 1) {
 				if (field[Point->x + 1][Point->y + i] == 'S') { //right field
-					std::cout <<
-						"Das Schiff kollidiert mit einem Anderen, bitte setzen Sie es erneut." << std::endl;
+				
 					return false;
 				}
 			}
-			if (Point->x < 0) {
+			if (Point->x > 0) {
 				if (field[Point->x - 1][Point->y + i] == 'S') { //left field
-					std::cout << "Das Schiff kollidiert mit einem Anderen, bitte setzen Sie es erneut." << std::endl;
+		
 					return false;
 				}
 			}
@@ -95,37 +96,38 @@ bool Board::checkShipPosition(std::shared_ptr<struct_Point> Point, int length, b
 
 		if (Point->x + length > boardSize) {
 			std::cout << "Das Schiff kann hier nicht platziert werden, bitte beachten Sie die Groesse des Schiffes: " << length << std::endl;
+
 			return false;
 		}
 		for (int i = 0; i < length; ++i) {
 			if (field[Point->x + i][Point->y] == 'S') { //this field
-				std::cout << "Das Schiff kollidiert mit einem Anderen, bitte setzen Sie es erneut." << std::endl;
+
 				return false;
 			}
 			if (Point->x + i < boardSize - 1) {
 				if (field[Point->x + i + 1][Point->y] == 'S') { // right field
-					std::cout << "Das Schiff kollidiert mit einem Anderen, bitte setzen Sie es erneut." << std::endl;
+
 					return false;
 				}
 			}
 			
-			if (Point->x + i> 0) {
+			if (Point->x + i > 0) {
 				if (field[Point->x + i - 1][Point->y] == 'S') { // left field
-					std::cout << "Das Schiff kollidiert mit einem Anderen, bitte setzen Sie es erneut." << std::endl;
+
 					return false;
 				}
 			}
 			
 			if (Point->y < boardSize - 1) {
 				if (field[Point->x + i][Point->y + 1] == 'S') { //lower field
-					std::cout << "Das Schiff kollidiert mit einem Anderen, bitte setzen Sie es erneut." << std::endl;
+					
 					return false;
 				}
 			}
 
 			if (Point->y > 0) {
 				if (field[Point->x + i][Point->y - 1] == 'S') { //upper field
-					std::cout << "Das Schiff kollidiert mit einem Anderen, bitte setzen Sie es erneut." << std::endl;
+	
 					return false;
 				}
 			}
@@ -240,11 +242,61 @@ void Board::setShips() {
 			auto newShip = std::make_shared<Ship>(Ship(point, tmpSize, tmpDirection));
 			shipList.push_back(newShip);
 			updateField();
+			drawField();
+		}
+		else {
+			std::cout << "Das Schiff kollidiert mit einem Anderen, bitte setzen Sie es erneut." << std::endl;
+			i--;
+		}
+	}
+}
+
+void Board::setShipsRandom() {
+	bool tmpDirection;
+	int tmpSize;
+	int tmpX;
+	int tmpY;
+
+	std::random_device randomDirection; // obtain a random number from hardware
+	std::mt19937 gen(randomDirection()); // seed the generator
+	std::uniform_int_distribution<> distr(0, 1); // define the range
+
+	std::random_device randomXY; // obtain a random number from hardware
+	std::mt19937 gen2(randomXY()); // seed the generator
+	std::uniform_int_distribution<> distr2(0, 9); // define the range
+
+	for (int i = 1; i < 11; ++i) {
+		switch (i) {
+		case 1:
+			tmpSize = 5;
+			break;
+		case 2:
+			tmpSize = 4;
+			break;
+		case 4:
+			tmpSize = 3;
+			break;
+		case 7:
+			tmpSize = 2;
+			break;
+		}
+
+		tmpDirection = distr(gen);
+		tmpX = distr2(gen2);
+		tmpY = distr2(gen2);
+
+		auto point = std::make_shared<struct_Point>(tmpX, tmpY);
+		if (checkShipPosition(point, tmpSize, tmpDirection)) {
+			auto newShip = std::make_shared<Ship>(Ship(point, tmpSize, tmpDirection));
+			shipList.push_back(newShip);
+			updateField();
 		}
 		else {
 			i--;
 		}
 	}
+	drawField();
+	
 }
 
 void Board::updateField() {
@@ -261,7 +313,7 @@ void Board::updateField() {
 			}
 		}
 	}
-	drawField();
+	
 }
 
 char Board::getPos(std::shared_ptr<struct_Point> point)

@@ -20,6 +20,7 @@ public:
 	//int charToInt(char& input);
 	bool setHorizontalVertical();
 	void setShips();
+	void setShipsRandom();
 	void updateField();
 	char getPos(std::shared_ptr<struct_Point> point);
 	void setPos(std::shared_ptr<struct_Point> point, char& c);

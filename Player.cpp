@@ -6,7 +6,18 @@ void Player::init()
 	std::cout << "Gib deinen Namen ein: ";
 	std::cin >> playerId;
 	playerBoard.drawField();
-	playerBoard.setShips();
+	std::cout << "Falls alle Shiffe Random gesetzt werden sollen, geben Sie bitte R ein, falls nicht drücken Sie Enter";
+	char input;
+	std::cin >> input;
+	switch (input) {
+	case 'r':
+	case 'R':
+		playerBoard.setShipsRandom();
+		break;
+	default: playerBoard.setShips();
+	}
+
+	
 }
 
 void Player::fire(Player& enemy, std::shared_ptr<struct_Point> point)
