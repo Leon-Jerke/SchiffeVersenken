@@ -52,7 +52,7 @@ bool Board::checkShipPosition(std::shared_ptr<struct_Point> Point, int length, b
 	if (dir) //vertical
 	{
 		if (Point->y + length > boardSize) {
-			std::cout << "Das Schiff kann hier nicht platziert werden, bitte beachten Sie die Gr��e des Schiffes: " << length << std::endl;
+			std::cout << "Das Schiff kann hier nicht platziert werden, bitte beachten Sie die Groesse des Schiffes: " << length << std::endl;
 			return false;
 		}
 		for (int i = 0; i < length; ++i) { //this field
@@ -94,7 +94,7 @@ bool Board::checkShipPosition(std::shared_ptr<struct_Point> Point, int length, b
 	{
 
 		if (Point->x + length > boardSize) {
-			std::cout << "Das Schiff kann hier nicht platziert werden, bitte beachten Sie die Größe des Schiffes: " << length << std::endl;
+			std::cout << "Das Schiff kann hier nicht platziert werden, bitte beachten Sie die Groesse des Schiffes: " << length << std::endl;
 			return false;
 		}
 		for (int i = 0; i < length; ++i) {
@@ -224,10 +224,10 @@ void Board::setShips() {
 			tmpSize = 2;
 			break;
 		}
-		std::cout << "Um Schiff " << i << " der Größe " << tmpSize << " zu setzen, muessen Sie festlegen ob dieser Horizontal oder Vertikal gesetzt werden soll." << std::endl;
+		std::cout << "Um Schiff " << i << " der Groesse " << tmpSize << " zu setzen, muessen Sie festlegen ob dieser Horizontal oder Vertikal gesetzt werden soll." << std::endl;
 		tmpDirection = setHorizontalVertical();
-		std::cout << "Nun benötige ich " << (tmpDirection ? " die oberste " : " die linkeste ") << "Koordinate des Schiffes" << std::endl;
-		std::cout << "Bitte beachten Sie die jeweilige Größe des Schiffes von" << tmpSize << "Feldern" << std::endl;
+		std::cout << "Nun benoetige ich " << (tmpDirection ? " die oberste " : " die linkeste ") << "Koordinate des Schiffes" << std::endl;
+		std::cout << "Bitte beachten Sie die jeweilige Groesse des Schiffes von " << tmpSize << " Feldern" << std::endl;
 		std::cout << "Koordinaten: ";
 		std::cin >> input;
 		//std::cin >> input;
