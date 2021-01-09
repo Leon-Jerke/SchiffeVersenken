@@ -13,7 +13,7 @@ void Player::init()
 		std::cout << "Gib deinen Namen ein: ";
 		std::cin >> playerId;
 		playerBoard.drawField();
-		std::cout << "Falls alle Shiffe Random gesetzt werden sollen, geben Sie bitte R ein, falls nicht druecken Sie Enter: ";
+		std::cout << "Falls alle Schiffe Random gesetzt werden sollen, geben Sie bitte R ein, falls nicht geben Sie einen beliebigen anderen Buchstaben ein: ";
 		char input;
 		std::cin >> input;
 		switch (input) {
@@ -41,6 +41,11 @@ void Player::fire(Player& enemy, std::shared_ptr<struct_Point> point)
 	hitBoard.setPos(point, marker);
 }
 
+bool Player::wouldHit(std::shared_ptr<struct_Point> point)
+{
+	return (playerBoard.getPos(point) == 'S');
+}
+
 bool Player::checkTarget(std::shared_ptr<struct_Point> point)
 {
 	if (hitBoard.getPos(point) == '*')
@@ -55,7 +60,7 @@ bool Player::checkTarget(std::shared_ptr<struct_Point> point)
 
 void Player::showBoard()
 {
-	//playerBoard.drawField();
+	playerBoard.drawField();
 	std::cout << "Hit Board: " << std::endl;
 	hitBoard.drawField();
 }

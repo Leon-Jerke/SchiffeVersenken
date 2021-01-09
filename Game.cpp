@@ -5,7 +5,7 @@
 
 void Game::run()
 {
-	std::cout << "Waehle den Schwierigkeitsgrad (1 = einfach, 2 = normal, 3 = schwer): ";
+	std::cout << "Waehle den Schwierigkeitsgrad (1 = sehr leicht, 2 = einfach, 3 = normal, 4 = schwer, 5 = God-Mode, 6 = unmöglich): ";
 	std::cin >> difficulty;
 	player1.init();
 	PressXToContinue();
@@ -39,34 +39,138 @@ void Game::turn(Player& currentP, Player& enemyP)
 {
 	bool newTarget = false;
 	std::shared_ptr<struct_Point> point;
+	std::random_device randomXY; // obtain a random number from hardware
+	std::mt19937 gen2(randomXY()); // seed the generator
 	if (currentP.getComputer())
 	{
 		switch (difficulty)
 		{
 		case 1:
-			{
-				std::random_device randomXY; // obtain a random number from hardware
-				std::mt19937 gen2(randomXY()); // seed the generator
-				std::uniform_int_distribution<> distr2(0, 9); // define the range
+		{
+			std::uniform_int_distribution<> distr2(0, 9); // define the range
 
+			while (!newTarget)
+			{
 				int tmpX = distr2(gen2);
 				int tmpY = distr2(gen2);
-
-				while (!newTarget)
+				point = std::make_shared<struct_Point>(tmpX, tmpY);
+				if (currentP.checkTarget(point))
 				{
-					point = std::make_shared<struct_Point>(tmpX, tmpY);
+					newTarget = true;
+				}
+			}
+			std::cout << "Der Computer attackiert..." << std::endl;
+			currentP.fire(enemyP, point);
+		}
+		break;
+		case 2:
+			std::uniform_int_distribution<> distrSafeHit(0, 4);
+			int safeHit = distrSafeHit(gen2);
+			std::uniform_int_distribution<> distrCor(0, 9);
+			while (!newTarget)
+			{
+				int tmpX = distrCor(gen2);
+				int tmpY = distrCor(gen2);
+				point = std::make_shared<struct_Point>(tmpX, tmpY);
+				if (safeHit == 0) {
+					if (currentP.checkTarget(point) && enemyP.wouldHit(point))
+					{
+						newTarget = true;
+					}
+				}
+				else {
 					if (currentP.checkTarget(point))
 					{
 						newTarget = true;
 					}
 				}
-				std::cout << "Der Computer attackiert..." << std::endl;
-				currentP.fire(enemyP, point);
 			}
-			break;
-		case 2:
+			currentP.fire(enemyP, point);
+			std::cout << "Der Computer attackiert..." << std::endl;
 			break;
 		case 3:
+			std::uniform_int_distribution<> distrSafeHit(0, 4);
+			int safeHit = distrSafeHit(gen2);
+			std::uniform_int_distribution<> distrCor(0, 9);
+			while (!newTarget)
+			{
+				int tmpX = distrCor(gen2);
+				int tmpY = distrCor(gen2);
+				point = std::make_shared<struct_Point>(tmpX, tmpY);
+				if (safeHit == 0 || safeHit == 1) {
+					if (currentP.checkTarget(point) && enemyP.wouldHit(point))
+					{
+						newTarget = true;
+					}
+				}
+				else {
+					if (currentP.checkTarget(point))
+					{
+						newTarget = true;
+					}
+				}
+			}
+			break;
+		case 4:
+			std::uniform_int_distribution<> distrSafeHit(0, 4);
+			int safeHit = distrSafeHit(gen2);
+			std::uniform_int_distribution<> distrCor(0, 9);
+			while (!newTarget)
+			{
+				int tmpX = distrCor(gen2);
+				int tmpY = distrCor(gen2);
+				point = std::make_shared<struct_Point>(tmpX, tmpY);
+				if (safeHit == 0 || safeHit == 1 || safeHit == 2) {
+					if (currentP.checkTarget(point) && enemyP.wouldHit(point))
+					{
+						newTarget = true;
+					}
+				}
+				else {
+					if (currentP.checkTarget(point))
+					{
+						newTarget = true;
+					}
+				}
+			}
+			break;
+		case 5:
+			std::uniform_int_distribution<> distrSafeHit(0, 4);
+			int safeHit = distrSafeHit(gen2);
+			std::uniform_int_distribution<> distrCor(0, 9);
+			while (!newTarget)
+			{
+				int tmpX = distrCor(gen2);
+				int tmpY = distrCor(gen2);
+				point = std::make_shared<struct_Point>(tmpX, tmpY);
+				if (safeHit != 4) {
+					if (currentP.checkTarget(point) && enemyP.wouldHit(point))
+					{
+						newTarget = true;
+					}
+				}
+				else {
+					if (currentP.checkTarget(point))
+					{
+						newTarget = true;
+					}
+				}
+			}
+			break;
+		case 6:
+			std::uniform_int_distribution<> distrSafeHit(0, 4);
+			int safeHit = distrSafeHit(gen2);
+			std::uniform_int_distribution<> distrCor(0, 9);
+			while (!newTarget)
+			{
+				int tmpX = distrCor(gen2);
+				int tmpY = distrCor(gen2);
+				point = std::make_shared<struct_Point>(tmpX, tmpY);
+				if (currentP.checkTarget(point) && enemyP.wouldHit(point))
+				{
+					newTarget = true;
+				}
+			}
 			break;
 		}
 	}

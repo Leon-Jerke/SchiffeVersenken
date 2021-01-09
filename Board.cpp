@@ -218,9 +218,9 @@ void Board::setShips() {
 			tmpSize = 2;
 			break;
 		}
-		std::cout << "Um Schiff " << i << " der Groesse " << tmpSize << " zu setzen, muessen Sie festlegen ob dieser Horizontal oder Vertikal gesetzt werden soll." << std::endl;
+		std::cout << "Um Schiff " << i << " der Groesse " << tmpSize << " zu setzen, muessen Sie festlegen ob dieses Horizontal oder Vertikal gesetzt werden soll." << std::endl;
 		tmpDirection = setHorizontalVertical();
-		std::cout << "Nun benoetige ich " << (tmpDirection ? " die oberste " : " die linkeste ") << "Koordinate des Schiffes" << std::endl;
+		std::cout << "Nun benoetige ich " << (tmpDirection ? " die oberste " : " die linkeste ") << "Koordinaten des Schiffes" << std::endl;
 		std::cout << "Bitte beachten Sie die jeweilige Groesse des Schiffes von " << tmpSize << " Feldern" << std::endl;
 		std::cout << "Koordinaten: ";
 		std::cin >> input;
@@ -329,8 +329,7 @@ bool Board::attack(std::shared_ptr<struct_Point> point)
 				for (int i = 0; i < tmp->length; ++i) {
 					if (tmp->UpperLeftCoordinates->x == point->x && tmp->UpperLeftCoordinates->y + i == point->y)
 					{
-						bool status = tmp->shipHit();
-						if (status)
+						if (tmp->shipHit())
 						{
 							std::cout << "Schiff versenkt!" << std::endl;
 						}
@@ -341,8 +340,7 @@ bool Board::attack(std::shared_ptr<struct_Point> point)
 				for (int i = 0; i < tmp->length; ++i) {
 					if (tmp->UpperLeftCoordinates->x + i== point->x && tmp->UpperLeftCoordinates->y == point->y)
 					{
-						bool status = tmp->shipHit();
-						if (status)
+						if (tmp->shipHit())
 						{
 							std::cout << "Schiff versenkt!" << std::endl;
 						}

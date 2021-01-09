@@ -21,6 +21,7 @@ public:
 	std::string getPlayerId();
 	void setComputer(bool b);
 	bool getComputer();
+	bool wouldHit(std::shared_ptr<struct_Point> point);
 private:
 	std::string playerId;
 	bool computer;
