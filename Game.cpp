@@ -41,32 +41,27 @@ void Game::turn(Player& currentP, Player& enemyP)
 	std::shared_ptr<struct_Point> point;
 	std::random_device randomXY; // obtain a random number from hardware
 	std::mt19937 gen2(randomXY()); // seed the generator
+	std::uniform_int_distribution<> distrSafeHit(0, 4);
+	int safeHit = distrSafeHit(gen2);
+	std::uniform_int_distribution<> distrCor(0, 9);
 	if (currentP.getComputer())
 	{
+		std::cout << "Der Computer attackiert: " << std::endl;
 		switch (difficulty)
 		{
 		case 1:
-		{
-			std::uniform_int_distribution<> distr2(0, 9); // define the range
-
 			while (!newTarget)
 			{
-				int tmpX = distr2(gen2);
-				int tmpY = distr2(gen2);
+				int tmpX = distrCor(gen2);
+				int tmpY = distrCor(gen2);
 				point = std::make_shared<struct_Point>(tmpX, tmpY);
 				if (currentP.checkTarget(point))
 				{
 					newTarget = true;
 				}
 			}
-			std::cout << "Der Computer attackiert..." << std::endl;
-			currentP.fire(enemyP, point);
-		}
 		break;
 		case 2:
-			std::uniform_int_distribution<> distrSafeHit(0, 4);
-			int safeHit = distrSafeHit(gen2);
-			std::uniform_int_distribution<> distrCor(0, 9);
 			while (!newTarget)
 			{
 				int tmpX = distrCor(gen2);
@@ -85,13 +80,8 @@ void Game::turn(Player& currentP, Player& enemyP)
 					}
 				}
 			}
-			currentP.fire(enemyP, point);
-			std::cout << "Der Computer attackiert..." << std::endl;
 			break;
 		case 3:
-			std::uniform_int_distribution<> distrSafeHit(0, 4);
-			int safeHit = distrSafeHit(gen2);
-			std::uniform_int_distribution<> distrCor(0, 9);
 			while (!newTarget)
 			{
 				int tmpX = distrCor(gen2);
@@ -112,9 +102,6 @@ void Game::turn(Player& currentP, Player& enemyP)
 			}
 			break;
 		case 4:
-			std::uniform_int_distribution<> distrSafeHit(0, 4);
-			int safeHit = distrSafeHit(gen2);
-			std::uniform_int_distribution<> distrCor(0, 9);
 			while (!newTarget)
 			{
 				int tmpX = distrCor(gen2);
@@ -135,9 +122,6 @@ void Game::turn(Player& currentP, Player& enemyP)
 			}
 			break;
 		case 5:
-			std::uniform_int_distribution<> distrSafeHit(0, 4);
-			int safeHit = distrSafeHit(gen2);
-			std::uniform_int_distribution<> distrCor(0, 9);
 			while (!newTarget)
 			{
 				int tmpX = distrCor(gen2);
@@ -158,9 +142,6 @@ void Game::turn(Player& currentP, Player& enemyP)
 			}
 			break;
 		case 6:
-			std::uniform_int_distribution<> distrSafeHit(0, 4);
-			int safeHit = distrSafeHit(gen2);
-			std::uniform_int_distribution<> distrCor(0, 9);
 			while (!newTarget)
 			{
 				int tmpX = distrCor(gen2);
@@ -173,6 +154,7 @@ void Game::turn(Player& currentP, Player& enemyP)
 			}
 			break;
 		}
+		currentP.fire(enemyP, point);
 	}
 	else
 	{
@@ -202,13 +184,18 @@ void Game::PressXToContinue()
 {
 	char input;
 	bool check = true;
-	std::cout << "Druecke X um fortzufahren: ";
+	std::cout << "Gebe X ein um fortzufahren: ";
 	while (check)
 	{
 		std::cin >> input;
 		switch (input) {
 		case 'x':
 		case 'X':
+			check = false;
+			break;
+		case 's':
+		case 'S':
+			//player1.showBoard();
 			check = false;
 			break;
 		default: check = true;

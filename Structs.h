@@ -11,9 +11,12 @@ typedef struct struct_Points {
     struct_Points(std::string& s) 
     {
         std::string input = s;
-        if (input.size() >= 2) {
+        if (input.size() == 2) {
             x = toupper(input[0]) - 'A';
             y = input[1] - '0';
+        }
+        else {
+            std::cout << "Es ist ein graunhafter Fehler aufgetreten, bitte Starten Sie das Spiel neu!" << std::endl;
         }
     }
     ~struct_Points() {

@@ -60,10 +60,15 @@ bool Player::checkTarget(std::shared_ptr<struct_Point> point)
 
 void Player::showBoard()
 {
+	std::cout << "Schiffsfeld: " << std::endl;
 	playerBoard.drawField();
 	std::cout << "Hit Board: " << std::endl;
 	hitBoard.drawField();
 }
+//
+//void Player::showPlayerBoard() {
+//	playerBoard.drawField();
+//}
 
 bool Player::gameStatus()
 {

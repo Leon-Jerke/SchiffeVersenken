@@ -52,7 +52,7 @@ bool Board::checkShipPosition(std::shared_ptr<struct_Point> Point, int length, b
 {
 	if (dir) //vertical
 	{
-		if (Point->y + length > boardSize) {	
+		if (Point->y + length > boardSize) {
 			return false;
 		}
 		for (int i = 0; i < length; ++i) { //this field
@@ -74,13 +74,13 @@ bool Board::checkShipPosition(std::shared_ptr<struct_Point> Point, int length, b
 			}
 			if (Point->x < boardSize - 1) {
 				if (field[Point->x + 1][Point->y + i] == 'S') { //right field
-				
+
 					return false;
 				}
 			}
 			if (Point->x > 0) {
 				if (field[Point->x - 1][Point->y + i] == 'S') { //left field
-		
+
 					return false;
 				}
 			}
@@ -143,6 +143,7 @@ void Board::setShips() {
 	int tmpY;
 	bool tmpDirection;
 	int tmpSize;
+	bool inputCheck = true;
 	for (int i = 1; i < 11; ++i) {
 		switch (i) {
 		case 1:
@@ -158,17 +159,20 @@ void Board::setShips() {
 			tmpSize = 2;
 			break;
 		}
-		std::cout << "Um Schiff " << i << " der Groesse " << tmpSize << " zu setzen, muessen Sie festlegen ob dieses Horizontal oder Vertikal gesetzt werden soll." << std::endl;
-		tmpDirection = setHorizontalVertical();
-		std::cout << "Nun benoetige ich " << (tmpDirection ? " die oberste " : " die linkeste ") << "Koordinaten des Schiffes" << std::endl;
-		std::cout << "Bitte beachten Sie die jeweilige Groesse des Schiffes von " << tmpSize << " Feldern" << std::endl;
-		std::cout << "Koordinaten: ";
-		std::cin >> input;
-		//std::cin >> input;
-		//tmpX = charToInt(input);
-		//std::cout << std::endl << "Y: ";
-		//std::cin >> input;
-		//tmpY = input - '0';
+		while (inputCheck) {
+			std::cout << "Um Schiff " << i << " der Groesse " << tmpSize << " zu setzen, muessen Sie festlegen ob dieses Horizontal oder Vertikal gesetzt werden soll." << std::endl;
+			tmpDirection = setHorizontalVertical();
+			std::cout << "Nun benoetige ich " << (tmpDirection ? " die oberste " : " die linkeste ") << "Koordinaten des Schiffes" << std::endl;
+			std::cout << "Bitte beachten Sie die jeweilige Groesse des Schiffes von " << tmpSize << " Feldern" << std::endl;
+			std::cout << "Koordinaten: ";
+			std::cin >> input;
+			if (input.size() == 2) {
+				inputCheck = false;
+			}
+			else{
+				std::cout << "Fehlerhafte Eingabe, bitte versuchen Sie es erneut!" << std::endl;
+			}
+		}
 		auto point = std::make_shared<struct_Point>(input);
 		if (checkShipPosition(point, tmpSize, tmpDirection)) {
 			auto newShip = std::make_shared<Ship>(Ship(point, tmpSize, tmpDirection));
@@ -228,7 +232,7 @@ void Board::setShipsRandom() {
 		}
 	}
 	drawField();
-	
+
 }
 
 void Board::updateField() {
@@ -245,7 +249,7 @@ void Board::updateField() {
 			}
 		}
 	}
-	
+
 }
 
 char Board::getPos(std::shared_ptr<struct_Point> point)
@@ -261,9 +265,11 @@ void Board::setPos(std::shared_ptr<struct_Point> point, char& c)
 bool Board::attack(std::shared_ptr<struct_Point> point)
 {
 	char target = field[point->x][point->y];
+	char tmpChar = 'A' + point->x;
 	if (target == 'S')
 	{
-		std::cout << "Getroffen!" << std::endl;
+		field[point->x][point->y] = 'X';
+		std::cout << "Treffer! Auf " << tmpChar << point->y << std::endl;
 		for (std::shared_ptr<Ship> tmp : shipList) {
 			if (tmp->vertical) {
 				for (int i = 0; i < tmp->length; ++i) {
@@ -278,7 +284,7 @@ bool Board::attack(std::shared_ptr<struct_Point> point)
 			}
 			else {
 				for (int i = 0; i < tmp->length; ++i) {
-					if (tmp->UpperLeftCoordinates->x + i== point->x && tmp->UpperLeftCoordinates->y == point->y)
+					if (tmp->UpperLeftCoordinates->x + i == point->x && tmp->UpperLeftCoordinates->y == point->y)
 					{
 						if (tmp->shipHit())
 						{
