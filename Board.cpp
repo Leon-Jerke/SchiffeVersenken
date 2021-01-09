@@ -52,9 +52,7 @@ bool Board::checkShipPosition(std::shared_ptr<struct_Point> Point, int length, b
 {
 	if (dir) //vertical
 	{
-		if (Point->y + length > boardSize) {
-
-			std::cout << "Das Schiff kann hier nicht platziert werden, bitte beachten Sie die Groesse des Schiffes: " << length << std::endl;
+		if (Point->y + length > boardSize) {	
 			return false;
 		}
 		for (int i = 0; i < length; ++i) { //this field
@@ -91,96 +89,38 @@ bool Board::checkShipPosition(std::shared_ptr<struct_Point> Point, int length, b
 	else
 	{
 		if (Point->x + length > boardSize) {
-			std::cout << "Das Schiff kann hier nicht platziert werden, bitte beachten Sie die Groesse des Schiffes: " << length << std::endl;
-
 			return false;
 		}
 		for (int i = 0; i < length; ++i) {
 			if (field[Point->x + i][Point->y] == 'S') { //this field
-
 				return false;
 			}
 			if (Point->x + i < boardSize - 1) {
 				if (field[Point->x + i + 1][Point->y] == 'S') { // right field
-
 					return false;
 				}
 			}
 			if (Point->x + i > 0) {
 				if (field[Point->x + i - 1][Point->y] == 'S') { // left field
-
 					return false;
 				}
 			}
 			if (Point->y < boardSize - 1) {
 				if (field[Point->x + i][Point->y + 1] == 'S') { //lower field
-					
 					return false;
 				}
 			}
 			if (Point->y > 0) {
 				if (field[Point->x + i][Point->y - 1] == 'S') { //upper field
-	
 					return false;
 				}
 			}
 		}
 	}
-	// else
-	// {
-	//     std::cout << "Das Schiff kann nur vertikal oder horizontal platziert werden." << std::endl;
-	//     return false;
-	// }
 
 	return true;
 }
 
-//int Board::charToInt(char& input) {
-//	switch (input) {
-//	case 'a':
-//	case 'A':
-//	case '0':
-//		return 0;
-//	case 'b':
-//	case 'B':
-//	case '1':
-//		return 1;
-//	case 'c':
-//	case 'C':
-//	case '2':
-//		return 2;
-//	case 'd':
-//	case 'D':
-//	case '3':
-//		return 3;
-//	case 'e':
-//	case 'E':
-//	case '4':
-//		return 4;
-//	case 'f':
-//	case 'F':
-//	case '5':
-//		return 5;
-//	case 'g':
-//	case 'G':
-//	case '6':
-//		return 6;
-//	case 'h':
-//	case 'H':
-//	case '7':
-//		return 7;
-//	case 'i':
-//	case 'I':
-//	case '8':
-//		return 8;
-//	case 'j':
-//	case 'J':
-//	case '9':
-//		return 9;
-//	default:
-//		return 0;
-//	}
-//}
 
 bool Board::setHorizontalVertical() {
 	char input;
@@ -237,7 +177,7 @@ void Board::setShips() {
 			drawField();
 		}
 		else {
-			std::cout << "Das Schiff kollidiert mit einem Anderen, bitte setzen Sie es erneut." << std::endl;
+			std::cout << "Das Schiff kollidiert mit einem Anderen oder dem Spielfeldrand, bitte setzen Sie es erneut." << std::endl;
 			i--;
 		}
 	}
