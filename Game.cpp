@@ -199,11 +199,6 @@ void Game::PressXToContinue()
 		case 'X':
 			check = false;
 			break;
-		case 's':
-		case 'S':
-			//player1.showBoard();
-			check = false;
-			break;
 		default: check = true;
 		}
 	}
