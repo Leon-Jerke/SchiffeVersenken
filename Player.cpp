@@ -20,6 +20,7 @@ void Player::init()
 		case 'r':
 		case 'R':
 			playerBoard.setShipsRandom();
+			playerBoard.drawField();
 			break;
 		default: playerBoard.setShips();
 		}

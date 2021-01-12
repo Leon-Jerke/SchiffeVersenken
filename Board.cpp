@@ -231,7 +231,7 @@ void Board::setShipsRandom() {
 			i--;
 		}
 	}
-	drawField();
+	
 
 }
 

@@ -5,8 +5,14 @@
 
 void Game::run()
 {
-	std::cout << "Waehle den Schwierigkeitsgrad (1 = sehr leicht, 2 = einfach, 3 = normal, 4 = schwer, 5 = God-Mode, 6 = unmöglich): ";
-	std::cin >> difficulty;
+	do {
+		std::cout << "Waehle den Schwierigkeitsgrad (1 = sehr leicht, 2 = einfach, 3 = normal, 4 = schwer, 5 = God-Mode, 6 = unmöglich): ";
+		if (!(std::cin >> difficulty)) {
+			std::cout << "Die Eingabe wurde leider nicht Erkannt, bitte versuchen Sie es erneut!" << std::endl;
+			std::cin.clear();
+			std::cin.ignore(1);
+		}
+	} while (difficulty != 1 && difficulty != 2 && difficulty != 3 && difficulty != 4 && difficulty != 5 && difficulty != 6);
 	player1.init();
 	PressXToContinue();
 	player2.setComputer(true);
@@ -191,11 +197,6 @@ void Game::PressXToContinue()
 		switch (input) {
 		case 'x':
 		case 'X':
-			check = false;
-			break;
-		case 's':
-		case 'S':
-			//player1.showBoard();
 			check = false;
 			break;
 		default: check = true;
