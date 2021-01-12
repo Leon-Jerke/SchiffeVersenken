@@ -28,16 +28,7 @@ void Player::init()
 
 void Player::fire(Player& enemy, std::shared_ptr<struct_Point> point)
 {
-	bool hit = enemy.playerBoard.attack(point);
-	char marker;
-	if (hit)
-	{
-		marker = 'X';
-	}
-	else
-	{
-		marker = 'O';
-	}
+	char marker = (enemy.playerBoard.attack(point) ? 'X' : 'O');
 	hitBoard.setPos(point, marker);
 }
 
@@ -48,14 +39,7 @@ bool Player::wouldHit(std::shared_ptr<struct_Point> point)
 
 bool Player::checkTarget(std::shared_ptr<struct_Point> point)
 {
-	if (hitBoard.getPos(point) == '*')
-	{
-		return true;
-	}
-	else
-	{
-		return false;
-	}
+	return (hitBoard.getPos(point) == '*');
 }
 
 void Player::showBoard()
@@ -65,10 +49,6 @@ void Player::showBoard()
 	std::cout << "Hit Board: " << std::endl;
 	hitBoard.drawField();
 }
-//
-//void Player::showPlayerBoard() {
-//	playerBoard.drawField();
-//}
 
 bool Player::gameStatus()
 {

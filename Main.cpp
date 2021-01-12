@@ -7,9 +7,6 @@
 #include "Player.h"
 
 int main() {
-    //auto board = Board();
-    //board.clearField();
-    //board.setShips();
     Board p1 = Board();
     Board h1 = Board();
     Player player1 = Player(p1, h1);
