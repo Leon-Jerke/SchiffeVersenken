@@ -4,8 +4,6 @@
 #include <memory>
 #include <random>
 
-
-
 Board::Board()
 {
 	clearField();
@@ -117,24 +115,25 @@ bool Board::checkShipPosition(std::shared_ptr<struct_Point> Point, int length, b
 			}
 		}
 	}
-
 	return true;
 }
 
 
 bool Board::setHorizontalVertical() {
 	char input;
-	std::cout << "Geben Sie \"H\" für Horizontal und \"V\" für Vertikal ein" << std::endl;
-	std::cin >> input;
-	switch (input) {
-	case 'h':
-	case 'H':
-		return false;
-	case 'v':
-	case 'V':
-		return true;
-	default: std::cout << "Die Eingabe wurde leider nicht erkannt, versuchen Sie es bitte erneut";
-	}
+	do {
+		std::cout << "Geben Sie \"H\" f\x81r Horizontal und \"V\" f\x81r Vertikal ein" << std::endl;
+		std::cin >> input;
+		switch (input) {
+		case 'h':
+		case 'H':
+			return false;
+		case 'v':
+		case 'V':
+			return true;
+		default: std::cout << "Die Eingabe wurde leider nicht erkannt, versuchen Sie es bitte erneut" << std::endl;;
+		}
+	} while (true);
 }
 
 void Board::setShips() {
@@ -160,10 +159,10 @@ void Board::setShips() {
 			break;
 		}
 		while (inputCheck) {
-			std::cout << "Um Schiff " << i << " der Groesse " << tmpSize << " zu setzen, muessen Sie festlegen ob dieses Horizontal oder Vertikal gesetzt werden soll." << std::endl;
+			std::cout << "Um Schiff " << i << " der Gr\x94\xE1\e " << tmpSize << " zu setzen, muessen Sie festlegen ob dieses Horizontal oder Vertikal gesetzt werden soll." << std::endl;
 			tmpDirection = setHorizontalVertical();
 			std::cout << "Nun benoetige ich " << (tmpDirection ? " die oberste " : " die linkeste ") << "Koordinaten des Schiffes" << std::endl;
-			std::cout << "Bitte beachten Sie die jeweilige Groesse des Schiffes von " << tmpSize << " Feldern" << std::endl;
+			std::cout << "Bitte beachten Sie die Gr\x94\xE1\e des Schiffes von " << tmpSize << " Feldern" << std::endl;
 			std::cout << "Koordinaten: ";
 			std::cin >> input;
 			if (input.size() == 2) {
@@ -197,9 +196,9 @@ void Board::setShipsRandom() {
 	std::mt19937 gen(randomDirection()); // seed the generator
 	std::uniform_int_distribution<> distr(0, 1); // define the range
 
-	std::random_device randomXY; // obtain a random number from hardware
-	std::mt19937 gen2(randomXY()); // seed the generator
-	std::uniform_int_distribution<> distr2(0, 9); // define the range
+	std::random_device randomXY;
+	std::mt19937 gen2(randomXY());
+	std::uniform_int_distribution<> distr2(0, 9);
 
 	for (int i = 1; i < 11; ++i) {
 		switch (i) {

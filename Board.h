@@ -17,7 +17,6 @@ public:
 	void drawField();
 	bool checkShipPosition(std::shared_ptr<struct_Point> Point, int length, bool dir);
 	void clearField();
-	//int charToInt(char& input);
 	bool setHorizontalVertical();
 	void setShips();
 	void setShipsRandom();

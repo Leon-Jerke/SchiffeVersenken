@@ -5,8 +5,13 @@
 
 void Game::run()
 {
+	std::cout << "Willkomen zu Schiffe Versenken!"
+		<< std::endl
+		<< "Ein Projekt von Paul Burkard, Leon Jerke und Ruben Herbstreuth"
+		<< std::endl;
+	PressXToContinue();
 	do {
-		std::cout << "Waehle den Schwierigkeitsgrad (1 = sehr leicht, 2 = einfach, 3 = normal, 4 = schwer, 5 = God-Mode, 6 = unmöglich): ";
+		std::cout << "Waehle den Schwierigkeitsgrad (1 = sehr leicht, 2 = einfach, 3 = normal, 4 = schwer, 5 = God-Mode, 6 = unm\x94glich): ";
 		if (!(std::cin >> difficulty)) {
 			std::cout << "Die Eingabe wurde leider nicht Erkannt, bitte versuchen Sie es erneut!" << std::endl;
 			std::cin.clear();
