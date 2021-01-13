@@ -1,5 +1,6 @@
 #include "Ship.h"
 #include <iostream>
+#include <memory>
 
 Ship::Ship(std::shared_ptr<struct_Point> Point, int length, bool dir)
 {

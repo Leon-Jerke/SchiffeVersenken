@@ -11,7 +11,7 @@ public:
 	~Game() {}
 	void run();
 	void turn(Player& currentP, Player& enemyP);
-	void PressXToContinue();
+	void PressAnyKeyToContinue();
 private:
 	Player& player1;
 	Player& player2;

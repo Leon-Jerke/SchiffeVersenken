@@ -3,6 +3,7 @@
 #define Structs_h
 #include <iostream>
 #include <string>
+#include <memory>
 
 typedef struct struct_Points {
     unsigned x;

@@ -13,7 +13,9 @@ void Player::init()
 		std::cout << "Gib deinen Namen ein: ";
 		std::cin >> playerId;
 		playerBoard.drawField();
-		std::cout << "Falls alle Schiffe Random gesetzt werden sollen, geben Sie bitte R ein, falls nicht geben Sie einen beliebigen anderen Buchstaben ein: ";
+		std::cout << "Falls alle Schiffe Random gesetzt werden sollen, geben Sie bitte R ein" 
+			<< std::endl 
+			<< "Falls Sie die Schiffe selber platzieren wollen, geben Sie einen beliebigen anderen Buchstaben ein: ";
 		char input;
 		std::cin >> input;
 		switch (input) {
@@ -43,12 +45,17 @@ bool Player::checkTarget(std::shared_ptr<struct_Point> point)
 	return (hitBoard.getPos(point) == '*');
 }
 
-void Player::showBoard()
+void Player::showHitBoard()
 {
-	std::cout << "Schiffsfeld: " << std::endl;
-	playerBoard.drawField();
-	std::cout << "Hit Board: " << std::endl;
+	std::cout << "Hit Board: " << std::endl << std::endl;
 	hitBoard.drawField();
+	std::cout << std::endl;
+}
+
+void Player::showShipBoard(){
+	std::cout << "Schiffsfeld: " << std::endl << std::endl;
+	playerBoard.drawField();
+	std::cout << std::endl;
 }
 
 bool Player::gameStatus()

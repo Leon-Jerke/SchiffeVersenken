@@ -15,7 +15,8 @@ public:
 	void init();
 	void fire(Player& enemy, std::shared_ptr<struct_Point> point);
 	bool checkTarget(std::shared_ptr<struct_Point> point);
-	void showBoard();
+	void showHitBoard();
+	void showShipBoard();
 	bool gameStatus();
 	void setPlayerId(std::string& id);
 	std::string getPlayerId();

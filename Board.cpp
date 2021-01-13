@@ -2,8 +2,7 @@
 #include "Ship.h"
 #include <iostream>
 #include <memory>
-#include <random>
-
+#include <time.h>
 Board::Board()
 {
 	clearField();
@@ -122,7 +121,7 @@ bool Board::checkShipPosition(std::shared_ptr<struct_Point> Point, int length, b
 bool Board::setHorizontalVertical() {
 	char input;
 	do {
-		std::cout << "Geben Sie \"H\" f\x81r Horizontal und \"V\" f\x81r Vertikal ein" << std::endl;
+		std::cout << "Gebe \"H\" f\x81r Horizontal und \"V\" f\x81r Vertikal ein" << std::endl;
 		std::cin >> input;
 		switch (input) {
 		case 'h':
@@ -131,7 +130,7 @@ bool Board::setHorizontalVertical() {
 		case 'v':
 		case 'V':
 			return true;
-		default: std::cout << "Die Eingabe wurde leider nicht erkannt, versuchen Sie es bitte erneut" << std::endl;;
+		default: std::cout << "Die Eingabe wurde leider nicht erkannt, versuche es bitte erneut" << std::endl;;
 		}
 	} while (true);
 }
@@ -169,7 +168,7 @@ void Board::setShips() {
 				inputCheck = false;
 			}
 			else{
-				std::cout << "Fehlerhafte Eingabe, bitte versuchen Sie es erneut!" << std::endl;
+				std::cout << "Fehlerhafte Eingabe, bitte versuche es erneut!" << std::endl;
 			}
 		}
 		auto point = std::make_shared<struct_Point>(input);
@@ -180,7 +179,7 @@ void Board::setShips() {
 			drawField();
 		}
 		else {
-			std::cout << "Das Schiff kollidiert mit einem Anderen oder dem Spielfeldrand, bitte setzen Sie es erneut." << std::endl;
+			std::cout << "Das Schiff kollidiert mit einem Anderen oder dem Spielfeldrand, bitte setze es erneut." << std::endl;
 			i--;
 		}
 	}
@@ -191,14 +190,7 @@ void Board::setShipsRandom() {
 	int tmpSize;
 	int tmpX;
 	int tmpY;
-
-	std::random_device randomDirection; // obtain a random number from hardware
-	std::mt19937 gen(randomDirection()); // seed the generator
-	std::uniform_int_distribution<> distr(0, 1); // define the range
-
-	std::random_device randomXY;
-	std::mt19937 gen2(randomXY());
-	std::uniform_int_distribution<> distr2(0, 9);
+	srand((unsigned)time(NULL));
 
 	for (int i = 1; i < 11; ++i) {
 		switch (i) {
@@ -216,9 +208,9 @@ void Board::setShipsRandom() {
 			break;
 		}
 
-		tmpDirection = distr(gen);
-		tmpX = distr2(gen2);
-		tmpY = distr2(gen2);
+		tmpDirection = (rand() % 9 < 5);
+		tmpX = rand() % 9;
+		tmpY = rand() % 9;
 
 		auto point = std::make_shared<struct_Point>(tmpX, tmpY);
 		if (checkShipPosition(point, tmpSize, tmpDirection)) {
@@ -297,7 +289,7 @@ bool Board::attack(std::shared_ptr<struct_Point> point)
 	}
 	else
 	{
-		std::cout << "Nicht Getroffen!" << std::endl;
+		std::cout << "Nicht Getroffen! Auf " << tmpChar << point->y << std::endl;
 		return false;
 	}
 }
