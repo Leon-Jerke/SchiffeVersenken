@@ -44,11 +44,15 @@ void Game::run()
 	}
 	if (swap)
 	{
+		std::cout << "******************************************************" << std::endl << std::endl;
 		std::cout << "Spieler " << player2.getPlayerId() << " hat gewonnen!" << std::endl;
+		std::cout << "******************************************************" << std::endl << std::endl;
 	}
 	else
 	{
+		std::cout << "******************************************************" << std::endl << std::endl;
 		std::cout << "Spieler " << player1.getPlayerId() << " hat gewonnen!" << std::endl;
+		std::cout << "******************************************************" << std::endl << std::endl;
 	}
 }
 
@@ -76,61 +80,80 @@ void Game::turn(Player& currentP, Player& enemyP)
 			}
 		break;
 		case 2:
-			while (!newTarget)
-			{
-				int tmpX = rand() % 9;
-				int tmpY = rand() % 9;
-				point = std::make_shared<struct_Point>(tmpX, tmpY);
-				if (safeHit < 30) {
-					if (currentP.checkTarget(point) && enemyP.wouldHit(point))
-					{
-						newTarget = true;
+			if(!player2.gameStatus()){
+				if(safeHit < 30){
+					for(int i = 0; i < 10; ++i){
+						for(int k = 0; k < 10; ++k){
+							point = std::make_shared<struct_Point>(i,k);
+							if (currentP.checkTarget(point) && enemyP.wouldHit(point))
+							{
+								newTarget = true;
+								break;
+							}
+						}
+						if(newTarget){
+							break;
+						}
 					}
 				}
-				else {
-					if (currentP.checkTarget(point))
+				else{
+					while (!newTarget)
 					{
-						newTarget = true;
+						int tmpX = rand() % 9;
+						int tmpY = rand() % 9;
+						point = std::make_shared<struct_Point>(tmpX, tmpY);
+						if (currentP.checkTarget(point))
+						{
+							newTarget = true;
+						}
 					}
 				}
 			}
 			break;
 		case 3:
-			while (!newTarget)
-			{
-				int tmpX = rand() % 9;
-				int tmpY = rand() % 9;
-				point = std::make_shared<struct_Point>(tmpX, tmpY);
-				if (safeHit < 60) {
-					if (currentP.checkTarget(point) && enemyP.wouldHit(point))
-					{
-						newTarget = true;
+			if(!player2.gameStatus()){
+				if(safeHit < 60){
+					for(int i = 0; i < 10; ++i){
+						for(int k = 0; k < 10; ++k){
+							point = std::make_shared<struct_Point>(i,k);
+							if (currentP.checkTarget(point) && enemyP.wouldHit(point))
+							{
+								newTarget = true;
+								break;
+							}
+						}
+						if(newTarget){
+							break;
+						}
 					}
 				}
-				else {
-					if (currentP.checkTarget(point))
+				else{
+					while (!newTarget)
 					{
-						newTarget = true;
+						int tmpX = rand() % 9;
+						int tmpY = rand() % 9;
+						point = std::make_shared<struct_Point>(tmpX, tmpY);
+						if (currentP.checkTarget(point))
+						{
+							newTarget = true;
+						}
 					}
 				}
 			}
 			break;
 		case 4:
-			while (!newTarget)
-			{
-				int tmpX = rand() % 9;
-				int tmpY = rand() % 9;
-				point = std::make_shared<struct_Point>(tmpX, tmpY);
-				if (safeHit == 0 || safeHit == 1 || safeHit == 2) {
-					if (currentP.checkTarget(point) && enemyP.wouldHit(point))
-					{
-						newTarget = true;
+			if(!player2.gameStatus()){
+				for(int i = 0; i < 10; ++i){
+					for(int k = 0; k < 10; ++k){
+						point = std::make_shared<struct_Point>(i,k);
+						if (currentP.checkTarget(point) && enemyP.wouldHit(point))
+						{
+							newTarget = true;
+							break;
+						}
 					}
-				}
-				else {
-					if (currentP.checkTarget(point))
-					{
-						newTarget = true;
+					if(newTarget){
+						break;
 					}
 				}
 			}
@@ -143,11 +166,20 @@ void Game::turn(Player& currentP, Player& enemyP)
 	{
 		std::cout << "Spieler " << currentP.getPlayerId() << " ist an der Reihe" << std::endl;
 		currentP.showHitBoard();
-		std::cout << "Wohin willst du schiessen? Gib die Koordinaten ein: ";
 		std::string input;
 		while (!newTarget)
 		{
-			std::cin >> input;
+			bool inputCheck = true;
+			while(inputCheck){
+				std::cout << "Wohin willst du schiessen? Gib die Koordinaten ein: ";
+				std::cin >> input;
+				if (input.size() == 2) {
+					inputCheck = false;
+				}
+				else{
+					std::cout << std::endl << "Fehlerhafte Eingabe, bitte versuche es erneut!" << std::endl;
+				}
+			}
 			point = std::make_shared<struct_Point>(input);
 			if (currentP.checkTarget(point))
 			{
@@ -155,7 +187,7 @@ void Game::turn(Player& currentP, Player& enemyP)
 			}
 			else
 			{
-				std::cout << "Du hast dort bereits hingeschossen. Versuche eine andere Koordinate.";
+				std::cout << std::endl << "Du hast dort bereits hingeschossen. Versuche eine andere Koordinate.";
 			}
 		}
 		currentP.fire(enemyP, point);
@@ -164,7 +196,9 @@ void Game::turn(Player& currentP, Player& enemyP)
 
 void Game::PressAnyKeyToContinue()
 {
-	system("pause"); // Ist "system("read");" auf OS X laut: https://stackoverflow.com/a/1452701/12977913
-	system("cls"); // Ist "system("clear");" auf OS X laut: https://stackoverflow.com/questions/27616522/cannot-use-systemcls-in-xcode-in-mac
+	system("pause"); 	// system("read"); auf OS X laut: https://stackoverflow.com/a/1452701/12977913
+						// system("pause"); auf Windows
+	system("cls"); 	// system("clear"); auf OS X laut: https://stackoverflow.com/questions/27616522/cannot-use-systemcls-in-xcode-in-mac
+						// system(cls); auf Windows
 }
 	

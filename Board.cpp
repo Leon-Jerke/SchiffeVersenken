@@ -168,7 +168,7 @@ void Board::setShips() {
 				inputCheck = false;
 			}
 			else{
-				std::cout << "Fehlerhafte Eingabe, bitte versuche es erneut!" << std::endl;
+				std::cout << std::endl << "Fehlerhafte Eingabe, bitte versuche es erneut!" << std::endl;
 			}
 		}
 		auto point = std::make_shared<struct_Point>(input);
